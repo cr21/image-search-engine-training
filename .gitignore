@@ -134,5 +134,5 @@ dmypy.json
 
 
 # ignore all data folderx
-data/caltech-101
-data/*.zip
+data/*
+search_venv/
