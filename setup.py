@@ -7,7 +7,7 @@ PROJECT_NAME = "src"
 VERSION = "0.0.1"
 AUTHOR = "Chirag Tagadiya"
 AUTHOR_EMAIL = "cr.tagadiya@gmail.com"
-DESRCIPTION = "Project for reverse search engine"
+DESRCIPTION = "Search Engine Training Pipeline"
 
 REQUIREMENT_FILE_NAME = "requirements.txt"
 
