@@ -4,6 +4,7 @@ import annoy
 from src.entity.config_entity import DataIngestionConfig, s3Config, DataProcessingConfig
 from src.components.dataingestion import DataIngestion
 from src.components.dataprocessing import DataProcessor
+from src.components.model import SearchNet
 import os
 
 
@@ -29,14 +30,17 @@ class Pipeline:
         data_processor_obj  = DataProcessor()
         loaders = data_processor_obj.run_step()
         return loaders
-        
+    
+    def initiate_model_architecture(self):
+        return SearchNet()
 
     def run_pipeline(self):
         # 1. Data Ingestion Process
         self.run_data_ingestion_process()
         # 2. Data Processing Process
         loaders = self.run_data_processing_steps()
-        # 3. Data Transformation Process
+        # 3. Model Building
+        search_net = self.initiate_model_architecture()
         # 4. Data Training Process
         # 5. Generate Embeddings
         # 6. Annoy Embeddings

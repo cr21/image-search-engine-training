@@ -20,6 +20,16 @@ class DataProcessingConfig:
     VALID_DATA_PATH:str=os.path.join(from_root(),"data","splitted","val")
     TEST_DATA_PATH:str=os.path.join(from_root(),"data","splitted","test")
 
+
+@dataclass
+class ModelConfig:
+    LABEL:str=101
+    BASE_MODEL_PATH:str = os.path.join(from_root(), "model","benchmark")
+    REPOSITORY:str='pytorch/vision:v0.10.0'
+    BASEMODE:str = 'resnet18'
+    PRETRAINED:bool = True
+
+
 @dataclass
 class s3Config:
     ACCESS_KEY_ID:str = os.getenv('AWS_ACCESS_KEY_ID')
