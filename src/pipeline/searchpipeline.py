@@ -1,8 +1,9 @@
 import torch
 from from_root import from_root
 import annoy
-from src.entity.config_entity import DataIngestionConfig, s3Config
+from src.entity.config_entity import DataIngestionConfig, s3Config, DataProcessingConfig
 from src.components.dataingestion import DataIngestion
+from src.components.dataprocessing import DataProcessor
 import os
 
 
@@ -12,6 +13,7 @@ class Pipeline:
                       "model", "model/benchmark", "model/finetuned"]
 
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
+
 
     def run_data_ingestion_process(self):
         # create data dirs
@@ -23,12 +25,17 @@ class Pipeline:
         
         data_ingest_obj.run_step()
 
+    def run_data_processing_steps(self):
+        data_processor_obj  = DataProcessor()
+        loaders = data_processor_obj.run_step()
+        return loaders
         
 
     def run_pipeline(self):
         # 1. Data Ingestion Process
         self.run_data_ingestion_process()
         # 2. Data Processing Process
+        loaders = self.run_data_processing_steps()
         # 3. Data Transformation Process
         # 4. Data Training Process
         # 5. Generate Embeddings

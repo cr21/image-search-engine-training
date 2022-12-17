@@ -12,6 +12,13 @@ class DataIngestionConfig:
     SEED:int=1331
     RATIO:float = (0.8,0.1,0.1) #[training, validation, test]
 
+@dataclass
+class DataProcessingConfig:
+    BATCH_SIZE:int = 32
+    IMAGE_SIZE:int = 256
+    TRAIN_DATA_PATH:str=os.path.join(from_root(),"data","splitted","train")
+    VALID_DATA_PATH:str=os.path.join(from_root(),"data","splitted","val")
+    TEST_DATA_PATH:str=os.path.join(from_root(),"data","splitted","test")
 
 @dataclass
 class s3Config:
