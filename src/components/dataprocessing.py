@@ -95,4 +95,5 @@ if __name__=='__main__':
 
     data_processor_obj = DataProcessor()
 
-    data_processor_obj.run_step()
+    loaders = data_processor_obj.run_step()
+    #print(loaders["valid_data_loader"][1].class_to_idx)
