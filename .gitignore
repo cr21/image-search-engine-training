@@ -135,4 +135,5 @@ dmypy.json
 
 # ignore all data folderx
 data/*
+model/benchmark/
 search_venv/

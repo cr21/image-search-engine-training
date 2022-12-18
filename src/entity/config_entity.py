@@ -14,7 +14,7 @@ class DataIngestionConfig:
 
 @dataclass
 class DataProcessingConfig:
-    BATCH_SIZE:int = 32
+    BATCH_SIZE:int = 128
     IMAGE_SIZE:int = 256
     TRAIN_DATA_PATH:str=os.path.join(from_root(),"data","splitted","train")
     VALID_DATA_PATH:str=os.path.join(from_root(),"data","splitted","val")
@@ -23,12 +23,18 @@ class DataProcessingConfig:
 
 @dataclass
 class ModelConfig:
-    LABEL:str=101
+    LABEL:str=102
     BASE_MODEL_PATH:str = os.path.join(from_root(), "model","benchmark")
     REPOSITORY:str='pytorch/vision:v0.10.0'
     BASEMODE:str = 'resnet18'
     PRETRAINED:bool = True
 
+@dataclass
+class ModelTrainerConfig:
+    MODEL_STORE_PATH:str = os.path.join(from_root(),"model","finetuned","model.pth")
+    EPOCHS:int=2
+    EVALUATION:bool=True
+    
 
 @dataclass
 class s3Config:

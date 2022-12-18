@@ -5,6 +5,7 @@ from src.entity.config_entity import DataIngestionConfig, s3Config, DataProcessi
 from src.components.dataingestion import DataIngestion
 from src.components.dataprocessing import DataProcessor
 from src.components.model import SearchNet
+from src.components.training import ModelTrainer
 import os
 
 
@@ -34,6 +35,14 @@ class Pipeline:
     def initiate_model_architecture(self):
         return SearchNet()
 
+
+    def initiate_model_training(self, loaders, net):
+        self.trainer = ModelTrainer(loaders, self.device, net)
+        self.trainer.train_model()
+        self.trainer.evaluate(validate=True)
+        self.trainer.save_to_model_path()
+        
+
     def run_pipeline(self):
         # 1. Data Ingestion Process
         self.run_data_ingestion_process()
@@ -42,6 +51,7 @@ class Pipeline:
         # 3. Model Building
         search_net = self.initiate_model_architecture()
         # 4. Data Training Process
+        self.initiate_model_training(loaders=loaders, net=search_net)
         # 5. Generate Embeddings
         # 6. Annoy Embeddings
         # 7. Push Embeddings, Models, Paths to Artifact aka push artifacts

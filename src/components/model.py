@@ -47,7 +47,7 @@ class SearchNet(nn.Module):
         return nn.Sequential(*list(model.children())[:-2])
 
     def forward(self, data):
-        x = self.base_model(x)
+        x = self.base_model(data)
         x = self.conv1(x)
         x = self.conv2(x)
         x = self.conv3(x)
