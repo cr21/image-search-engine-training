@@ -85,8 +85,8 @@ class ModelTrainer:
                 
 
 
-            val_loss = running_loss/len(self.loader.dataset)
-            val_accuracy = 100 * running_correct/len(self.loader.dataset)
+            val_loss = running_loss/len(loader.dataset)
+            val_accuracy = 100 * running_correct/len(loader.dataset)
 
                 
             
