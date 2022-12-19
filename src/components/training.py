@@ -30,7 +30,7 @@ class ModelTrainer:
         start = time.time()
         for epoch in range(self.config.EPOCHS):
             print(f'Training Epoch: {epoch}')
-            train_epoch_loss, train_epoch_accuracy = self.fit(epoch)
+            train_epoch_loss, train_epoch_accuracy = self.fit()
             val_epoch_loss, val_epoch_accuracy = self.evaluate()
             train_loss.append(train_epoch_loss)
             train_accuracy.append(train_epoch_accuracy)
