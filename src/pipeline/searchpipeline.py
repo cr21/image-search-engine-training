@@ -45,7 +45,8 @@ class Pipeline:
     def initiate_model_training(self, loaders, net):
         self.trainer = ModelTrainer(loaders, self.device, net)
         self.trainer.train_model()
-        self.trainer.evaluate(validate=True)
+        test_loss,test_acc  = self.trainer.evaluate(validate=True)
+        print(f"Test Loss {test_loss:.2f}, Test_acc {test_acc:.2f}")
         self.trainer.save_to_model_path()
 
     def generate_embeddings(self,loaders:dict, net:nn.Module):

@@ -6,6 +6,7 @@ from src.components.model import SearchNet
 from torch import nn
 from tqdm import tqdm
 import numpy as np
+from time import time
 from src.utils.common import seed_everything
 
 class ModelTrainer:
@@ -23,9 +24,29 @@ class ModelTrainer:
         self.device = device
         seed_everything()
 
-
     def train_model(self):
-        print('Training')
+        train_loss , train_accuracy = [], []
+        val_loss , val_accuracy = [], []
+        start = time.time()
+        for epoch in range(self.config.EPOCHS):
+            print(f'Training Epoch: {epoch}')
+            train_epoch_loss, train_epoch_accuracy = self.fit(epoch)
+            val_epoch_loss, val_epoch_accuracy = self.evaluate()
+            train_loss.append(train_epoch_loss)
+            train_accuracy.append(train_epoch_accuracy)
+            val_loss.append(val_epoch_loss)
+            val_accuracy.append(val_epoch_accuracy)
+
+        
+        end = time.time()
+        print((end-start)/60, 'minutes')
+        print(f"average Training Loss -> {np.mean(train_loss)}")
+        print(f"average Training Accuracy -> {np.mean(train_accuracy)}")
+        print(f"average Validation Loss -> {np.mean(val_loss)}")
+        print(f"average Validation Accuracy -> {np.mean(val_accuracy)}")
+
+    def fit(self):
+        
         self.model.train()
         running_loss = 0.0
         running_correct = 0
