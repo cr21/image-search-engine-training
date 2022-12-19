@@ -9,11 +9,10 @@ class  MongoDBClient:
     def __init__(self) -> None:
         self.db_config = DatabaseConfig()
         print(self.db_config.URL)
+        print(self.db_config.USERNAME)
+        print(self.db_config.PASSWORD)
         url = self.db_config.URL.replace("<username>", self.db_config.USERNAME).replace("<password>", self.db_config.PASSWORD)
         
-        # url = self.db_config.URL.\
-        #                         replace('<username>',self.db_config.USERNAME)
-        #                         replace('<password>', self.db_config.PASSWORD)
         self.client = MongoClient(url)
 
     def insert_bulk_record(self, records):

@@ -10,7 +10,7 @@ from src.components.dataprocessing import DataProcessor
 from src.components.model import SearchNet
 from src.components.training import ModelTrainer
 from src.components.nearest_neighbours import Annoy
-from src.utils.storage_handler import s3Connector
+from src.utils.storage_handler import S3Connector
 import os
 from torch import nn
 
@@ -63,24 +63,38 @@ class Pipeline:
         ann.run_step()
 
     def push_artifacts(self):
-        s3_connector = s3Connector()
+        s3_connector = S3Connector()
         response = s3_connector.zip_files()
         return response
 
     def run_pipeline(self):
         # 1. Data Ingestion Process
+        print("Step 1")
+        print("+"*100)
         self.run_data_ingestion_process()
         # 2. Data Processing Process
+        print("Step 2")
+        print("+"*100)
         loaders = self.run_data_processing_steps()
         # 3. Model Building
+        print("Step 3")
+        print("+"*100)
         search_net = self.initiate_model_architecture()
         # 4. Data Training Process
+        print("Step 4")
+        print("+"*100)
         self.initiate_model_training(loaders=loaders, net=search_net)
         # 5. Generate Embeddings
+        print("Step 5")
+        print("+"*100)
         self.generate_embeddings(loaders=loaders, net=search_net)
         # 6. Annoy Embeddings
+        print("Step 6")
+        print("+"*100)
         self.create_annoy_index()
         # 7. Push Embeddings, Models, Paths to Artifact aka push artifacts
+        print("Step 7")
+        print("+"*100)
         self.push_artifacts()
 
 
