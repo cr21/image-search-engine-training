@@ -82,9 +82,7 @@ class ModelTrainer:
                 _, preds = torch.max(logits.data,1)
                 # count total true predictions
                 running_correct+=(preds ==labels).sum().item()
-                
-
-
+            
             val_loss = running_loss/len(loader.dataset)
             val_accuracy = 100 * running_correct/len(loader.dataset)
 
