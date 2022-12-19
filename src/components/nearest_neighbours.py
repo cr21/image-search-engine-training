@@ -47,6 +47,8 @@ class customAnnoy(AnnoyIndex):
         
         """
         indexes  = super().get_nns_by_vector(vector, n, search_k, include_distances)
+        print("indexes", indexes)
+        print("+"*100)
         labels =  [self.labels[link] for link in indexes]
 
         return labels

@@ -14,7 +14,7 @@ class DataIngestionConfig:
 
 @dataclass
 class DataProcessingConfig:
-    BATCH_SIZE:int = 64
+    BATCH_SIZE:int = 32
     IMAGE_SIZE:int = 256
     TRAIN_DATA_PATH:str=os.path.join(from_root(),"data","splitted","train")
     VALID_DATA_PATH:str=os.path.join(from_root(),"data","splitted","val")
@@ -32,7 +32,7 @@ class ModelConfig:
 @dataclass
 class ModelTrainerConfig:
     MODEL_STORE_PATH:str = os.path.join(from_root(),"model","finetuned","model.pth")
-    EPOCHS:int=10
+    EPOCHS:int=15
     EVALUATION:bool=True
 
 @dataclass

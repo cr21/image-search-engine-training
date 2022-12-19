@@ -59,8 +59,41 @@ class ModelTrainer:
             print("Training Complete \n")
 
 
+    def evaluate(self, validate=False):
+        """After the completion of each training epoch, measure the model's performance
+        on our validation set.
+        """
+        self.model.eval()
+        val_accuracy = []
+        val_loss = []
+        running_loss = 0.0
+        running_correct = 0
 
-    def evaluate(self,validate=True):
+        loader = self.test_data_loader if not validate else self.valid_data_loader
+
+        with torch.no_grad():
+            for batch in tqdm(loader):
+                img = batch[0].to(self.device)
+                labels = batch[1].to(self.device)
+                logits = self.model(img)
+                loss = self.criterion(logits, labels)
+                val_loss.append(loss.item())
+                running_loss+=loss.item()
+                _, preds = torch.max(logits.data,1)
+                # count total true predictions
+                running_correct+=(preds ==labels).sum().item()
+                
+
+
+            val_loss = running_loss/len(self.loader.dataset)
+            val_accuracy = 100 * running_correct/len(self.loader.dataset)
+
+                
+            
+
+        return val_loss, val_accuracy
+
+    def evaluate1(self,validate=True):
         print("Evaluation Starts ... \n")
         #put model in evaluation mode
         self.model.eval()

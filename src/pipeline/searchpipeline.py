@@ -50,7 +50,7 @@ class Pipeline:
 
     def generate_embeddings(self,loaders:dict, net:nn.Module):
         # search_dataset = 
-        search_dataset = ImageFolder(label_map=loaders["valid_data_loader"][1].class_to_idx)
+        search_dataset = ImageFolder(label_map=loaders["train_data_loader"][1].class_to_idx)
         dataloader = DataLoader(dataset=search_dataset, batch_size=64, shuffle=True)
         embeds = EmbeddingGenerator(model=net, device=self.device)
 
