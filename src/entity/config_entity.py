@@ -55,7 +55,11 @@ class ImageRecord:
     label:str=None
     s3_link:str=None
 
-    
+@dataclass
+class AnnoyConfig:
+    EMBEDDING_STORE_PATH:str = os.path.join(from_root(),"data","embeddings","embeddings.ann")
+    EMBEDDING_SIZE:int = 256
+
 @dataclass
 class ImageFolderConfig:
     ROOT_DIR:str=os.path.join(from_root(),"data","raw","images")

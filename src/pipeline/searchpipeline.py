@@ -9,6 +9,8 @@ from src.components.dataingestion import DataIngestion
 from src.components.dataprocessing import DataProcessor
 from src.components.model import SearchNet
 from src.components.training import ModelTrainer
+from src.components.nearest_neighbours import Annoy
+from src.utils.storage_handler import s3Connector
 import os
 from torch import nn
 
@@ -56,7 +58,14 @@ class Pipeline:
             img, target, link = values
             print(embeds.run_steps(batch, img, target, link))
 
+    def create_annoy_index(self):
+        ann = Annoy()
+        ann.run_step()
 
+    def push_artifacts(self):
+        s3_connector = s3Connector()
+        response = s3_connector.zip_files()
+        return response
 
     def run_pipeline(self):
         # 1. Data Ingestion Process
@@ -70,9 +79,9 @@ class Pipeline:
         # 5. Generate Embeddings
         self.generate_embeddings(loaders=loaders, net=search_net)
         # 6. Annoy Embeddings
-        
+        self.create_annoy_index()
         # 7. Push Embeddings, Models, Paths to Artifact aka push artifacts
-
+        self.push_artifacts()
 
 
 
