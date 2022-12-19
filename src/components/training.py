@@ -27,7 +27,7 @@ class ModelTrainer:
     def train_model(self):
         train_loss , train_accuracy = [], []
         val_loss , val_accuracy = [], []
-        start = time.time()
+        start = time()
         for epoch in range(self.config.EPOCHS):
             print(f'Training Epoch: {epoch}')
             train_epoch_loss, train_epoch_accuracy = self.fit()
@@ -38,7 +38,7 @@ class ModelTrainer:
             val_accuracy.append(val_epoch_accuracy)
 
         
-        end = time.time()
+        end = time()
         print((end-start)/60, 'minutes')
         print(f"average Training Loss -> {np.mean(train_loss)}")
         print(f"average Training Accuracy -> {np.mean(train_accuracy)}")
