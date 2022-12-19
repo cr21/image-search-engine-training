@@ -1,6 +1,13 @@
 name: workflow
 
-on: [workflow_dispatch]
+# on: [workflow_dispatch]
+
+on:
+  push:
+    branches:
+      - main2
+    paths-ignore:
+      - 'README.md'
 
 # on:
 #   push:
