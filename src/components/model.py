@@ -2,11 +2,12 @@ import torch
 from from_root import from_root
 from src.entity.config_entity import ModelConfig
 import torch.nn  as nn
-
+from src.utils.common import seed_everything
 class SearchNet(nn.Module):
 
     def __init__(self) -> None:
         super().__init__()
+        seed_everything()
         self.config = ModelConfig()
         self.base_model = self.get_base_model()
         self.conv1 = nn.Conv2d(
