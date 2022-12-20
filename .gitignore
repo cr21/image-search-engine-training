@@ -139,5 +139,5 @@ data/*
 model/*
 model/benchmark/
 search_venv/
-flowcharts/*
+# flowcharts/
 *.DS_Store
