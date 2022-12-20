@@ -8,8 +8,6 @@ import os
 class S3Connector(object):
     def __init__(self):
         self.config = s3Config()
-        print(self.config.ACCESS_KEY_ID)
-        print(self.config.SECRET_KEY)
         self.session = Session(aws_access_key_id=self.config.ACCESS_KEY_ID,
                                aws_secret_access_key=self.config.SECRET_KEY,
                                region_name=self.config.REGION_NAME)
@@ -42,4 +40,4 @@ class S3Connector(object):
 if __name__ == "__main__":
     connection = S3Connector()
     connection.zip_files()
-    connection.pull_artifacts()
+    # connection.pull_artifacts()

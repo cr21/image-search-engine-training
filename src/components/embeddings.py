@@ -39,15 +39,15 @@ class ImageFolder(Dataset):
                 file_path = os.path.join(folder_path, f"{file_name}" )
                 #for each Image file 
                 # create triplet Image, label, s3_link for image
-                self.record.img = file_path
-                self.record.label = self.config.LABEL_MAP[folder]
-                self.record.s3_link = self.config.S3_LINK.format(
-                                                                self.config.BUCKET,
-                                                                folder,
-                                                                file_name
-                                                                )
-                print("RECORD =>",self.record)
-                self.image_records.append(self.record)
+                print("Record : => ",self.record(img=file_path,
+                                                      label=self.config.LABEL_MAP[folder],
+                                                      s3_link=self.config.S3_LINK.format(self.config.BUCKET, folder,
+                                                                                         file_name)))
+                self.image_records.append(self.record(img=file_path,
+                                                      label=self.config.LABEL_MAP[folder],
+                                                      s3_link=self.config.S3_LINK.format(self.config.BUCKET, folder,
+                                                                                         file_name)))
+
 
 
 
@@ -138,7 +138,7 @@ class EmbeddingGenerator:
         record['images'] = logits.tolist()
         record['label'] = target.tolist()
         record['s3_link'] = s3_link
-
+        # print("s3_link", s3_link)
         # create json document list to upload to mongodb collection
         df = pd.DataFrame(record)
         #print(df)
@@ -164,4 +164,6 @@ if __name__=='__main__':
 
     for batch, values in tqdm(enumerate(dataloader)):
         img, target, link = values
+        print(link, target)
+        print("+"*100)
         print(embeds.run_steps(batch, img, target, link))

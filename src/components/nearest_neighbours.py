@@ -35,6 +35,7 @@ class customAnnoy(AnnoyIndex):
         self.labels=[]
 
     def add_item(self, i: int, vector, label: str) -> None:
+        print("labels")
         super().add_item(i, vector)
         self.labels.append(label)
 
@@ -87,12 +88,15 @@ class Annoy:
         Ann = customAnnoy(self.config.EMBEDDING_SIZE, 'euclidean')
         print("Creating ANN for predictions")
         # for i, record in tqdm(enumerate(self.result),total=8851):
-        for i, record in tqdm(enumerate(self.result),total=8851):
+        for i, record in tqdm(enumerate(self.result)):
+            print(i, record["images"], record["s3_link"])
             Ann.add_item(i,record["images"],record["s3_link"])
         
         # n_trees
         Ann.build(100)
         Ann.save(self.config.EMBEDDING_STORE_PATH)
+        print("+"*100)
+        print(Ann.labels)
         return True
 
 
@@ -102,7 +106,7 @@ class Annoy:
 
 if __name__ == "__main__":
     ann = Annoy()
-    ann.run_step()        
+    ann.run_step()       
 
 
 

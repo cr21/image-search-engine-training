@@ -45,13 +45,12 @@ class Pipeline:
     def initiate_model_training(self, loaders, net):
         self.trainer = ModelTrainer(loaders, self.device, net)
         self.trainer.train_model()
-        test_loss,test_acc  = self.trainer.evaluate(validate=True)
-        print(f"Test Loss {test_loss:.2f}, Test_acc {test_acc:.2f}")
+        self.trainer.evaluate(validate=True)
         self.trainer.save_to_model_path()
 
     def generate_embeddings(self,loaders:dict, net:nn.Module):
         # search_dataset = 
-        search_dataset = ImageFolder(label_map=loaders["train_data_loader"][1].class_to_idx)
+        search_dataset = ImageFolder(label_map=loaders["valid_data_loader"][1].class_to_idx)
         dataloader = DataLoader(dataset=search_dataset, batch_size=64, shuffle=True)
         embeds = EmbeddingGenerator(model=net, device=self.device)
 
