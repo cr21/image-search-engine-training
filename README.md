@@ -5,7 +5,7 @@ Training endpoint is expensive we can't keep it live all the time, so we will pu
 # Data Collection Architecture
 ![Imgur](https://i.imgur.com/wia4HB0.png)
 ![Imgur](https://i.imgur.com/iZOr5Eh.png)
-# sarch Engine Training Architecture
+# search Engine Training Architecture
 ![Imgur](https://i.imgur.com/gVjhHF1.png)
 
 # Infrastructure Needed
